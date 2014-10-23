@@ -37,7 +37,7 @@ Ray3D RayScene::GetRay(RayCamera* camera,int i,int j,int width,int height){
 	
 	p[2] = 100;	
 
-	cout << p[0] << " " << p[1] << " " << p[2] << " ";
+	//cout << p[0] << " " << p[1] << " " << p[2] << " ";
 	
 	return r;
 }

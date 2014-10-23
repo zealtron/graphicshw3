@@ -1,15 +1,18 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "rayGroup.h"
-
+#include <iostream>
+using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
 double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
-	if( mx > 0 ) {
-		return mx;
-	}
-	return -1;
+	/*for(int i = 0; i < sNum; i++){
+		double s = shapes[i]->intersect(ray, iInfo, mx);
+		cout << shapes[i] << " ";
+	}*/
+	cout << mx << " " << sNum;
+	return 1;
 }
 
 BoundingBox3D RayGroup::setBoundingBox(void){
