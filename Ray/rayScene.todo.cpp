@@ -23,26 +23,28 @@ Ray3D RayScene::GetRay(RayCamera* camera,int i,int j,int width,int height){
 	Point3D p;
 	//cout << camera->direction.p[0] << " " << camera->direction.p[1] << " " << camera->direction.p[2] << " "; 
 	
-	//Y-axis, d=100
-	double py1 = r.position.p[1] + 100*camera->direction.p[1] - 100*tan(camera->heightAngle)*camera->up.p[1];
-	double py2 = r.position.p[1] + 100*camera->direction.p[1] + 100*tan(camera->heightAngle)*camera->up.p[1];
+	//Y-axis, d=1
+	Point3D py1 = r.position + camera->direction - camera->up*tan(camera->heightAngle);
+	Point3D py2 = r.position + camera->direction + camera->up*tan(camera->heightAngle);
+
+	//X-axis, d=1
+	Point3D px1 = r.position + camera->direction - camera->right*tan(camera->heightAngle*camera->aspectRatio);
+	Point3D px2 = r.position + camera->direction + camera->right*tan(camera->heightAngle*camera->aspectRatio);
 	
-	p[1] = py1 + ((j+0.5)/height)*(py2-py1);
+	Point3D px = px1 + (px2-px1)*((i+0.5)/width) - r.position;
+	Point3D py = py1 + (py2-py1)*((j+0.5)/height) - r.position;
+	p = px + py;
 
-	//X-axis, d=100
-	double px1 = r.position.p[0] + 100*camera->direction.p[0] - 100*tan(camera->heightAngle)*camera->right.p[0];
-	double px2 = r.position.p[0] + 100*camera->direction.p[0] + 100*tan(camera->heightAngle)*camera->right.p[0];
-
-	p[0] = px1 + ((i+0.5)/width)*(px2-px1);
-	
-	p[2] = 100;	
-
+	r.direction = p.unit();	
+	//cout << "Position: " << camera->position.p[0] << " " << camera->position.p[1] << " " << camera->position.p[2] << "\n";
 	//cout << p[0] << " " << p[1] << " " << p[2] << " ";
 	
 	return r;
 }
 
 Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
+	RayIntersectionInfo iInfo;
+	int result = group->intersect(ray, iInfo, 0); 
 	return Point3D();
 }
 
