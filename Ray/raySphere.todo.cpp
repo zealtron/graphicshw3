@@ -14,6 +14,8 @@ double RaySphere::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	double c = (ray.position-center).squareNorm()-pow(radius,2);
 
 	//perform quadratic -b +/- sqrt( b^2 - 4ac)
+	double d = pow(b,2)-(4*a*c);
+	if(d < 0) return -1;
 	double t1 = (-b+sqrt(pow(b,2)-(4*a*c)))/(2*a);
 	double t2 = (-b-sqrt(pow(b,2)-(4*a*c)))/(2*a);
 	
@@ -22,15 +24,13 @@ double RaySphere::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	if(t2 < 0) t2 = 999999;
 
 	double t = min(t1,t2);
-	if(mx < t && mx > 0){
-		return mx;
-	}else{
-		RayIntersectionInfo& info = iInfo;
-		info.iCoordinate = ray.position + ray.direction*t;
-		info.normal = (info.iCoordinate-center)/(info.iCoordinate-center).length();
-		info.material = material;
-		return t;
-	}
+	
+	RayIntersectionInfo& info = iInfo;
+	info.iCoordinate = ray.position + ray.direction*t;
+	info.normal = (info.iCoordinate-center).unit();
+	info.material = material;
+	//cout << t << " ";
+	return t;
 }
 BoundingBox3D RaySphere::setBoundingBox(void){
 	return bBox;

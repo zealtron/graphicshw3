@@ -7,16 +7,21 @@ using namespace std;
 //  Ray-tracing stuff //
 ////////////////////////
 double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){	
+	RayIntersectionInfo bestinfo;
+	double dst = 9999;
 	for(int i = 0; i < sNum; i++){
-		mx = shapes[i]->intersect(ray, iInfo, mx);
+		double result = shapes[i]->intersect(ray, bestinfo, mx);	
+		if(result < dst && result > 0){
+			dst = result;
+			iInfo = bestinfo;
+		}
 		//cout << shapes[i] << " ";
 	}
-	//cout << mx << " " << sNum;
-	if(mx > 0){
-		cout << mx << " ";
-		return mx;
-	}else{
+	//cout << mx << " ";
+	if(dst == 9999){
 		return -1;
+	}else{
+		return dst;
 	}
 }
 
