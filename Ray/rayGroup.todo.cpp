@@ -6,13 +6,18 @@ using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
-double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
+double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){	
 	for(int i = 0; i < sNum; i++){
-		double s = shapes[i]->intersect(ray, iInfo, mx);
-		cout << shapes[i] << " ";
+		mx = shapes[i]->intersect(ray, iInfo, mx);
+		//cout << shapes[i] << " ";
 	}
 	//cout << mx << " " << sNum;
-	return 1;
+	if(mx > 0){
+		cout << mx << " ";
+		return mx;
+	}else{
+		return -1;
+	}
 }
 
 BoundingBox3D RayGroup::setBoundingBox(void){

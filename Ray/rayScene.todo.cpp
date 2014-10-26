@@ -44,8 +44,14 @@ Ray3D RayScene::GetRay(RayCamera* camera,int i,int j,int width,int height){
 
 Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 	RayIntersectionInfo iInfo;
-	int result = group->intersect(ray, iInfo, 0); 
-	return Point3D();
+	double result = group->intersect(ray, iInfo, -1);
+	//cout << result << " ";
+	if(result > 0){
+		cout << result << " ";
+		return iInfo.material->emissive + iInfo.material->ambient;
+	}else{ 
+		return Point3D();
+	}
 }
 
 //////////////////
