@@ -47,8 +47,10 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 	double result = group->intersect(ray, iInfo, 0);
 	//cout << result << " ";
 	if(result > 0){
-		cout << result << " ";
-		return (iInfo.material->emissive + iInfo.material->ambient);
+		//cout << result << " ";
+		Point3D color = iInfo.material->ambient + iInfo.material->emissive;
+		cout << color.p[0] << " " << color.p[1] << " " << color.p[2] << "\n";
+		return color;
 	}else{ 
 		return Point3D();
 	}

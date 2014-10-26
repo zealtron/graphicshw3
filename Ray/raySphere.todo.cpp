@@ -29,6 +29,7 @@ double RaySphere::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	info.iCoordinate = ray.position + ray.direction*t;
 	info.normal = (info.iCoordinate-center).unit();
 	info.material = material;
+	cout << material->emissive.p[0] << " " << material->emissive.p[1] << " " << material->emissive.p[2] << " ";
 	//cout << t << " ";
 	return t;
 }
