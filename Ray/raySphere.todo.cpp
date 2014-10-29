@@ -24,12 +24,13 @@ double RaySphere::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	if(t2 < 0) t2 = 999999;
 
 	double t = min(t1,t2);
-	
+
 	RayIntersectionInfo& info = iInfo;
+	info.material = material;	
 	info.iCoordinate = ray.position + ray.direction*t;
 	info.normal = (info.iCoordinate-center).unit();
-	info.material = material;
-	cout << material->emissive.p[0] << " " << material->emissive.p[1] << " " << material->emissive.p[2] << " ";
+	
+	//cout << material->emissive.p[0] << " " << material->emissive.p[1] << " " << material->emissive.p[2] << " ";
 	//cout << t << " ";
 	return t;
 }

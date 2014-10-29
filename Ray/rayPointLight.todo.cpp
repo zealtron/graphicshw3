@@ -2,11 +2,13 @@
 #include <GL/glut.h>
 #include "rayPointLight.h"
 #include "rayScene.h"
-
+#include <iostream>
+using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
 Point3D RayPointLight::getDiffuse(Point3D cameraPosition,RayIntersectionInfo& iInfo){
+	cout << constAtten << " " << linearAtten << " " << quadAtten << "\n";
 	return Point3D();
 }
 Point3D RayPointLight::getSpecular(Point3D cameraPosition,RayIntersectionInfo& iInfo){
