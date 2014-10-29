@@ -50,7 +50,7 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 		//cout << result << " ";
 		Point3D diffuse;
 		for(int i = 0; i < lightNum; i++){
-			diffuse = diffuse + lights[i]->getDiffuse(camera->position, iInfo);	
+			diffuse = diffuse + lights[i]->getDiffuse(ray.position, iInfo);	
 		}
 		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse;
 		//cout << color.p[0] << " " << color.p[1] << " " << color.p[2] << "\n";

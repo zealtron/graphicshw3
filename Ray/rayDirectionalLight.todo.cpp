@@ -7,10 +7,9 @@ using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
-Point3D RayDirectionalLight::getDiffuse(Point3D cameraPosition,RayIntersectionInfo& iInfo){
-	Point3D diffuse = color * iInfo.material->diffuse;
-	double NdotL = max(iInfo.normal.dot(cameraPosition),0.0);
-	return diffuse*NdotL;
+Point3D RayDirectionalLight::getDiffuse(Point3D cameraPosition,RayIntersectionInfo& iInfo){	
+	double NdotL = max(iInfo.normal.negate().dot(direction),0.0);
+	return iInfo.material->diffuse*NdotL*color;
 }
 Point3D RayDirectionalLight::getSpecular(Point3D cameraPosition,RayIntersectionInfo& iInfo){
 	return Point3D();
