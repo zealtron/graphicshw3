@@ -49,10 +49,12 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 	if(result > 0){
 		//cout << result << " ";
 		Point3D diffuse;
+		Point3D specular;
 		for(int i = 0; i < lightNum; i++){
 			diffuse = diffuse + lights[i]->getDiffuse(ray.position, iInfo);	
+			specular = specular + lights[i]->getSpecular(ray.position, iInfo);
 		}
-		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse;
+		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse + specular;
 		//cout << color.p[0] << " " << color.p[1] << " " << color.p[2] << "\n";
 		/*Point3D color;
 		color.p[0] = 1;

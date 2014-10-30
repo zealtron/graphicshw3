@@ -7,11 +7,11 @@ using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
-Point3D RayPointLight::getDiffuse(Point3D cameraPosition,RayIntersectionInfo& iInfo){
-	cout << constAtten << " " << linearAtten << " " << quadAtten << "\n";
+Point3D RayPointLight::getDiffuse(Point3D cameraPosition,RayIntersectionInfo& iInfo){	
 	return Point3D();
 }
 Point3D RayPointLight::getSpecular(Point3D cameraPosition,RayIntersectionInfo& iInfo){
+	cout << "Hello ";
 	return Point3D();
 }
 int RayPointLight::isInShadow(RayIntersectionInfo& iInfo,RayShape* shape,int& isectCount){
