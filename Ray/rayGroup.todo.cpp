@@ -18,7 +18,7 @@ double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 		//cout << shapes[i] << " ";
 	}
 	//cout << mx << " ";
-	if(dst == 9999){
+	if(dst == 9999 || dst <= 0.0001){
 		return -1;
 	}else{
 		return dst;

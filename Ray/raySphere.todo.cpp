@@ -19,7 +19,7 @@ double RaySphere::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	double t1 = (-b+sqrt(pow(b,2)-(4*a*c)))/(2*a);
 	double t2 = (-b-sqrt(pow(b,2)-(4*a*c)))/(2*a);
 	
-	if(t1 < 0 && t2 < 0) return -1;
+	if(t1 <= 0 && t2 <= 0) return -1;
 	if(t1 < 0) t1 = 999999;
 	if(t2 < 0) t2 = 999999;
 
