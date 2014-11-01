@@ -29,7 +29,7 @@ int RayPointLight::isInShadow(RayIntersectionInfo& iInfo,RayShape* shape,int& is
 	RayIntersectionInfo info;
 	Ray3D ray;
 	ray.position = iInfo.iCoordinate;
-	ray.direction = (iInfo.iCoordinate - location).unit();
+	ray.direction = (iInfo.iCoordinate - location).unit().negate();
 	double result = shape->intersect(ray, info, 0);
 	if(result > 0) return 1;
 	return 0;
