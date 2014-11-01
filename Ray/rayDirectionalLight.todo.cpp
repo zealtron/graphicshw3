@@ -15,7 +15,6 @@ Point3D RayDirectionalLight::getSpecular(Point3D cameraPosition,RayIntersectionI
 	Point3D V = (cameraPosition-iInfo.iCoordinate).unit();	
 	Point3D R = (iInfo.normal*-2*(direction.unit().dot(iInfo.normal)))+direction.unit();
 	double VdotR = V.dot(R);
-	//cout << iInfo.iCoordinate.p[0] << " " << iInfo.iCoordinate.p[1] << " " << iInfo.iCoordinate.p[2] << " " << VdotR << "\n";
 	if(VdotR > 0){
 		return iInfo.material->specular*pow(VdotR,iInfo.material->specularFallOff)*color;
 	}else{
