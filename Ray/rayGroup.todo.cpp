@@ -12,17 +12,20 @@ double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	Ray3D localray = this->getInverseMatrix().mult(ray);	
 	localray.direction = localray.direction.unit();
 	double dst = 9999;
+	double truedst;
 	for(int i = 0; i < sNum; i++){
 		double result = shapes[i]->intersect(localray, bestinfo, mx);
-		if(result > 0){
-			cout << result << " ";
-			result = (ray.position - this->getMatrix().multPosition(iInfo.iCoordinate)).length();
-			cout << result << "\n";
-		}	
-		if(result <= dst && result > 0){
+		if(result > 0){		
+			truedst = (ray.position - this->getMatrix().multPosition(bestinfo.iCoordinate)).length();
+			if(truedst < dst){
+				dst = truedst;
+				iInfo = bestinfo;
+			}
+		}
+		/*if(result <= dst && result > 0){
 			dst = result;
 			iInfo = bestinfo;
-		}
+		}*/
 		//cout << shapes[i] << " ";
 	}
 	//cout << mx << " ";
