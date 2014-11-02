@@ -8,12 +8,18 @@ using namespace std;
 ////////////////////////
 double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){		
 	RayIntersectionInfo bestinfo;
+	RayIntersectionInfo decoyinfo;
 	Ray3D localray = this->getInverseMatrix().mult(ray);	
 	localray.direction = localray.direction.unit();
 	double dst = 9999;
 	for(int i = 0; i < sNum; i++){
-		double result = shapes[i]->intersect(localray, bestinfo, mx);	
-		if(result < dst && result > 0){
+		double result = shapes[i]->intersect(localray, bestinfo, mx);
+		if(result > 0){
+			cout << result << " ";
+			result = (ray.position - this->getMatrix().multPosition(iInfo.iCoordinate)).length();
+			cout << result << "\n";
+		}	
+		if(result <= dst && result > 0){
 			dst = result;
 			iInfo = bestinfo;
 		}
