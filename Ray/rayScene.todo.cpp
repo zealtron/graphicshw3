@@ -10,7 +10,7 @@ using namespace std;
 ///////////////////////
 
 Point3D RayScene::Reflect(Point3D v,Point3D n){
-	return Point3D();
+	return (n*-2*(v.unit().dot(n)))+v.unit();
 }
 
 int RayScene::Refract(Point3D v,Point3D n,double ir,Point3D& refract){
@@ -58,7 +58,7 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 				specular = specular + lights[i]->getSpecular(ray.position, iInfo);
 			}	
 		}
-		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse + specular;
+		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse + specular + iInfo.material->specular*this->Reflect((ray.position - iInfo.iCoordinate).unit(), iInfo.normal);
 		return color;
 	}else{ 
 		return background;
