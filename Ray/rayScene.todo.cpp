@@ -58,7 +58,7 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 				specular = specular + lights[i]->getSpecular(ray.position, iInfo);
 			}	
 		}
-		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse + specular + iInfo.material->specular*this->Reflect((ray.position - iInfo.iCoordinate).unit(), iInfo.normal);
+		Point3D color = iInfo.material->ambient + iInfo.material->emissive + diffuse + specular;
 		return color;
 	}else{ 
 		return background;
