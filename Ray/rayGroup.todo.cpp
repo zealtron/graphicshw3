@@ -6,11 +6,13 @@ using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
-double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){	
+double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){		
 	RayIntersectionInfo bestinfo;
+	Ray3D localray = this->getInverseMatrix().mult(ray);	
+	localray.direction = localray.direction.unit();
 	double dst = 9999;
 	for(int i = 0; i < sNum; i++){
-		double result = shapes[i]->intersect(ray, bestinfo, mx);	
+		double result = shapes[i]->intersect(localray, bestinfo, mx);	
 		if(result < dst && result > 0){
 			dst = result;
 			iInfo = bestinfo;
@@ -21,6 +23,8 @@ double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	if(dst == 9999 || dst <= 0.0001){
 		return -1;
 	}else{
+		iInfo.iCoordinate = this->getMatrix().multPosition(iInfo.iCoordinate); 
+		iInfo.normal = (this->getNormalMatrix()*iInfo.normal.negate()).unit();
 		return dst;
 	}
 }
@@ -30,6 +34,8 @@ BoundingBox3D RayGroup::setBoundingBox(void){
 }
 
 int StaticRayGroup::set(void){
+	inverseTransform = localTransform.invert();
+	normalTransform = localTransform.invert().transpose();
 	return 1;
 }
 //////////////////

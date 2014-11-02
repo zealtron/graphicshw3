@@ -34,7 +34,7 @@ double RayTriangle::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
 	
 	RayIntersectionInfo& info = iInfo;
 	info.iCoordinate = ray.position + ray.direction*t;
-	info.normal = plane.normal;
+	info.normal = plane.normal.negate();
 	info.material = material;
 	
 	return t;
