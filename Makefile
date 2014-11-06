@@ -1,4 +1,4 @@
-TARGET  = Assignment2
+TARGET  = Assignment3
 SRCS	= 	Util/time \
 		Util/cmdLineParser \
 		Util/geometry \
