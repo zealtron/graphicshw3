@@ -1,15 +1,40 @@
 #include <stdlib.h>
-#include <GL/glut.h>
+#ifdef __APPLE__
+	#include <GLUT/glut.h>
+#else
+	#include <GL/glut.h>
+#endif
 #include "rayGroup.h"
 
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////
 double RayGroup::intersect(Ray3D ray,RayIntersectionInfo& iInfo,double mx){
-	return -1;
+	double minDistance = mx;
+
+	for (int i = 0; i < sNum; i++) {
+		double distance = shapes[i]->intersect(ray, iInfo, minDistance);
+		if (distance >= 0) {
+			minDistance = distance;
+		}
+	}
+
+	return minDistance;
 }
 
 BoundingBox3D RayGroup::setBoundingBox(void){
+	Point3D* pList;
+	BoundingBox3D tBBox;
+	pList=new Point3D[sNum*2];
+	for(int i=0;i<sNum;i++){
+		tBBox=shapes[i]->setBoundingBox();
+		pList[2*i  ]=tBBox.p[0];
+		pList[2*i+1]=tBBox.p[1];
+	}
+	tBBox=BoundingBox3D(pList,sNum*2);
+
+	delete[] pList;
+	bBox=tBBox.transform(getMatrix());
 	return bBox;
 }
 
