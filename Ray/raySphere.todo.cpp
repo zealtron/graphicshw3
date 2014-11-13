@@ -22,5 +22,6 @@ int RaySphere::drawOpenGL(int materialIndex){
 	GLUquadricObj *obj = gluNewQuadric();
 	gluSphere(obj, radius, openGLComplexity, openGLComplexity);
 	glTranslatef(center.p[0], center.p[1], center.p[2]);
-	return 1;
+	material->drawOpenGL();
+	return -1;
 }

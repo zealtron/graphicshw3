@@ -32,6 +32,7 @@ int RayTriangle::drawOpenGL(int materialIndex){
 		glVertex3f(v[0]->position.p[0], v[0]->position.p[1], v[0]->position.p[2]);		
 		glVertex3f(v[1]->position.p[0], v[1]->position.p[1], v[1]->position.p[2]);	
 		glVertex3f(v[2]->position.p[0], v[2]->position.p[1], v[2]->position.p[2]);	
-	glEnd(); 
-	return 1;
+	glEnd();
+	material->drawOpenGL(); 
+	return -1;
 }

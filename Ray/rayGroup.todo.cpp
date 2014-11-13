@@ -52,7 +52,7 @@ int RayGroup::drawOpenGL(int materialIndex){
 	for (int i = 0; i < sNum; i++) {
 		int distance = shapes[i]->drawOpenGL(materialIndex);
 	}
-	return 1;
+	return -1;
 }
 
 /////////////////////
