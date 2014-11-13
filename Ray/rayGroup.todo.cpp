@@ -49,7 +49,10 @@ int RayGroup::getOpenGLCallList(void){
 }
 
 int RayGroup::drawOpenGL(int materialIndex){
-	return -1;
+	for (int i = 0; i < sNum; i++) {
+		int distance = shapes[i]->drawOpenGL(materialIndex);
+	}
+	return 1;
 }
 
 /////////////////////

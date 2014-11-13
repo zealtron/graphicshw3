@@ -19,5 +19,8 @@ BoundingBox3D RaySphere::setBoundingBox(void){
 // OpenGL stuff //
 //////////////////
 int RaySphere::drawOpenGL(int materialIndex){
-	return -1;
+	GLUquadricObj *obj = gluNewQuadric();
+	gluSphere(obj, radius, openGLComplexity, openGLComplexity);
+	glTranslatef(center.p[0], center.p[1], center.p[2]);
+	return 1;
 }
