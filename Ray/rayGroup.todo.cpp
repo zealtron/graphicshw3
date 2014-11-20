@@ -6,6 +6,7 @@
 #endif
 #include "rayGroup.h"
 
+using namespace std;
 ////////////////////////
 //  Ray-tracing stuff //
 ////////////////////////

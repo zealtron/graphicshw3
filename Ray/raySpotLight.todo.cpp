@@ -24,4 +24,7 @@ Point3D RaySpotLight::transparency(RayIntersectionInfo& iInfo,RayShape* shape,Po
 // OpenGL stuff //
 //////////////////
 void RaySpotLight::drawOpenGL(int index){
+	GLfloat spot_direction[] = {direction.negate().p[0], direction.negate().p[1], direction.negate().p[2], 0.0};
+	glLightfv(GL_LIGHT0+index, GL_SPOT_DIRECTION, spot_direction);
+	glEnable(GL_LIGHT0+index);
 }
