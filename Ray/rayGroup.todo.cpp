@@ -46,7 +46,15 @@ int StaticRayGroup::set(void){
 // OpenGL stuff //
 //////////////////
 int RayGroup::getOpenGLCallList(void){
-	return 0;
+	int handle = glGenLists(1);
+	if (handle != 0){
+		glNewList(handle, GL_COMPILE);
+			for (int i = 0; i < sNum; i++) {
+				int distance = shapes[i]->drawOpenGL(-1);
+			}
+		glEndList();
+	}
+	return handle;
 }
 
 int RayGroup::drawOpenGL(int materialIndex){	
@@ -60,8 +68,12 @@ int RayGroup::drawOpenGL(int materialIndex){
 	};
 	glPushMatrix();
 	glMultMatrixd(matrix);
-	for (int i = 0; i < sNum; i++) {
-		int distance = shapes[i]->drawOpenGL(materialIndex);
+	if(openGLCallListID == 0){
+		for (int i = 0; i < sNum; i++) {
+			int distance = shapes[i]->drawOpenGL(materialIndex);
+		}
+	}else{
+		glCallList(openGLCallListID);
 	}
 	glPopMatrix();
 	return -1;
