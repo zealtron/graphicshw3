@@ -1,7 +1,8 @@
 #include "rayScene.h"
 #include <GL/glut.h>
 #include <math.h>
-
+#include <iostream>
+using namespace std;
 
 ///////////////////////
 // Ray-tracing stuff //
@@ -27,16 +28,17 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 // OpenGL stuff //
 //////////////////
 void RayMaterial::drawOpenGL(void){
-	GLfloat amb [] = {ambient.p[0], ambient.p[1], ambient.p[2]};
-	glMaterialfv(GL_FRONT, GL_AMBIENT, amb);	
-	GLfloat dif [] = {diffuse.p[0], diffuse.p[1], diffuse.p[2]};
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, dif);
-	GLfloat em [] = {emissive.p[0], emissive.p[1], emissive.p[2]};
-	glMaterialfv(GL_FRONT, GL_EMISSION, em);
-	GLfloat spec [] = {specular.p[0], specular.p[1], specular.p[2]};
-	glMaterialfv(GL_FRONT, GL_SPECULAR, spec);
-	GLfloat shin [1] = {specularFallOff};
-	glMaterialfv(GL_FRONT, GL_SHININESS, shin);	
+	GLfloat amb[] = {ambient.p[0], ambient.p[1], ambient.p[2]};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, amb);	
+	GLfloat dif[] = {diffuse.p[0], diffuse.p[1], diffuse.p[2]};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, dif);
+	GLfloat em[] = {emissive.p[0], emissive.p[1], emissive.p[2]};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
+	GLfloat spec[] = {specular.p[0], specular.p[1], specular.p[2]};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
+	GLfloat shin[] = {specularFallOff};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, shin);	
+	//cout << diffuse.p[0] << " " << diffuse.p[1] << " " << diffuse.p[2] << "\n";
 }
 void RayTexture::setUpOpenGL(void){
 }

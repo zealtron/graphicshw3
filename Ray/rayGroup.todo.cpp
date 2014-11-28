@@ -49,7 +49,8 @@ int RayGroup::getOpenGLCallList(void){
 	return 0;
 }
 
-int RayGroup::drawOpenGL(int materialIndex){
+int RayGroup::drawOpenGL(int materialIndex){	
+	glMatrixMode(GL_MODELVIEW);
 	for (int i = 0; i < sNum; i++) {
 		int distance = shapes[i]->drawOpenGL(materialIndex);
 	}

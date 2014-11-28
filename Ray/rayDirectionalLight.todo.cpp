@@ -29,6 +29,7 @@ void RayDirectionalLight::drawOpenGL(int index){
 	//glLightfv(GL_LIGHT0+index, GL_AMBIENT, ambient);
 	GLfloat diffuse[] = {color.p[0], color.p[1], color.p[2]};
 	glLightfv(GL_LIGHT0+index, GL_DIFFUSE, diffuse);
-	glLightfv(GL_LIGHT0+index, GL_SPECULAR, diffuse);
 	glEnable(GL_LIGHT0+index);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
 }
