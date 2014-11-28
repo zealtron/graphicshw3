@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+
 ///////////////////////
 // Ray-tracing stuff //
 ///////////////////////
@@ -27,7 +28,9 @@ Point3D RayScene::GetColor(Ray3D ray,int rDepth,Point3D cLimit){
 //////////////////
 // OpenGL stuff //
 //////////////////
-void RayMaterial::drawOpenGL(void){
+static GLuint texName;
+
+void RayMaterial::drawOpenGL(void){		
 	GLfloat amb[] = {ambient.p[0], ambient.p[1], ambient.p[2]};
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, amb);	
 	GLfloat dif[] = {diffuse.p[0], diffuse.p[1], diffuse.p[2]};
@@ -41,4 +44,12 @@ void RayMaterial::drawOpenGL(void){
 	//cout << diffuse.p[0] << " " << diffuse.p[1] << " " << diffuse.p[2] << "\n";
 }
 void RayTexture::setUpOpenGL(void){
+	glGenTextures(1, &openGLHandle);
+	glBindTexture(GL_TEXTURE_2D, openGLHandle);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);	
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);	
+	GLvoid *image = (GLvoid *)(&img->pixel(0,0));
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->width(), img->height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 }
